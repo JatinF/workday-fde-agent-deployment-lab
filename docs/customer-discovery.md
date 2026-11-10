@@ -27,6 +27,10 @@ A manager asks how much time off a worker has, then books a block of hours and l
 - The external coverage call can fail with 503. The action retries it. The business-process submit is not retried blindly. A repeated `client_request_id` returns the original event.
 - The coverage system is a fixture. There is no vendor contract and no live credential.
 
+## Field story
+
+The same engagement is the field story in `reports/field_story.md`. The first broken package omits `list_time_off_types`. That reproduction is backlog `FDE-BACKLOG-001`. It is not a customer incident.
+
 ## Out of scope
 
 Production promotion, Sana, a hosted model, a real supervisory organization, and any worker data outside the four fixture rows.

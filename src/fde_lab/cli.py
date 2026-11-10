@@ -12,6 +12,7 @@ from fde_lab.models import InvokeRequest
 from fde_lab.paths import repo_root
 from fde_lab.preflight import preflight
 from fde_lab.runtime import Runtime
+from fde_lab.story import format_story, run_story
 from fde_lab.suite import format_report, run_suite
 
 
@@ -21,6 +22,7 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("preflight")
     sub.add_parser("run-suite")
+    sub.add_parser("run-story")
     sub.add_parser("gates")
     serve = sub.add_parser("serve")
     serve.add_argument("--host", default="127.0.0.1")
@@ -64,6 +66,26 @@ def main(argv: list[str] | None = None) -> int:
             + str(report.suite_duration_ms)
         )
         return 1 if report.failed or report.token_leak_count else 0
+    if args.command == "run-story":
+        story = run_story()
+        destination = repo_root() / "reports"
+        destination.mkdir(exist_ok=True)
+        (destination / "field_story.json").write_text(
+            story.model_dump_json(indent=2) + "\n",
+            encoding="utf-8",
+        )
+        (destination / "field_story.md").write_text(format_story(story), encoding="utf-8")
+        print(
+            "checks="
+            + str(story.passed + story.failed)
+            + " passed="
+            + str(story.passed)
+            + " failed="
+            + str(story.failed)
+            + " duration_ms="
+            + str(story.duration_ms)
+        )
+        return 1 if story.failed else 0
     if args.command == "invoke":
         arguments: dict[str, str | int] = {"worker_id": args.worker}
         if args.skill == "request-coverage":

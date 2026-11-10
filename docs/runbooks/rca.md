@@ -46,9 +46,9 @@ The live MCP URL shape is `https://{agentGatewayRegionEndpoint}/{tenantName}/mcp
 
 ## malformed-input
 
-Code: `malformed_input`.
+Codes: `malformed_input`, `schema_mismatch`.
 
-The action rejects a missing field, a wrong type, an unknown worker, or a time-off type that is not a prompt value. The troubleshooting table says this is the message "The input arguments do not match the expected input schema." Every request property on the shipped action has a description and a sample.
+`malformed_input` is a missing field, an unknown worker, or a time-off type that is not a prompt value. `schema_mismatch` is a value of the wrong JSON type. A string in `hours` stays a string because the coverage contract is strict. Workday's troubleshooting table uses one message for both: the input arguments do not match the expected input schema. The lab splits them so a type error is not diagnosed as a missing field. Every request property on the shipped action has a description and a sample.
 
 ## timeout-retry-idempotency
 

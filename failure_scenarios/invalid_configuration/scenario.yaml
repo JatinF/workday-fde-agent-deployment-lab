@@ -1,0 +1,19 @@
+id: invalid_configuration
+title: Invalid configuration
+symptom: The gateway does not list the tool.
+diagnosis: The first gateway check returns tenant_alias_missing.
+root_cause: The tenant alias is empty. Agent Gateway requires it. A real tenant alias was not issued for this lab.
+fix: Send the lab org id SYN-ORG-NORTHLINE as the alias on the local stand-in.
+prevention: The alias check fails closed before the token is treated as sufficient.
+actor_id: SYN-USER-NOOR
+skill: request-coverage
+arguments:
+  worker_id: SYN-USER-IVAN
+  hours: 8
+  time_off_type_wid: fde00000000000000000000000000031
+  client_request_id: story-invalid-config
+  coverage_note: Desk coverage for the lab engagement.
+faults:
+  tenant_alias_missing: true
+expected_code: tenant_alias_missing
+validation: clean_write

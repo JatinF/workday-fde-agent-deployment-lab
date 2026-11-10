@@ -1,0 +1,17 @@
+id: missing_permission
+title: Missing permission
+symptom: HR does not see the write skill. The tool is not listed.
+diagnosis: gateway_authorize returns not_in_available_to. request-coverage Available To is managers only.
+root_cause: SYN-USER-HANA is in SYN-SG-HR-PARTNER. That group is not on the write skill.
+fix: Leave the write skill limited to managers. Send HR to read-balance.
+prevention: Preflight rejects SYN-SG-EMPLOYEE on the write skill. The story checks that HR can read and still cannot write.
+actor_id: SYN-USER-HANA
+skill: request-coverage
+arguments:
+  worker_id: SYN-USER-IVAN
+  hours: 8
+  time_off_type_wid: fde00000000000000000000000000031
+  client_request_id: story-missing-permission
+  coverage_note: Desk coverage for the lab engagement.
+expected_code: not_in_available_to
+validation: least_privilege

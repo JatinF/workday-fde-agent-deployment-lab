@@ -1,0 +1,5 @@
+prompt_values:
+  - wid: fde00000000000000000000000000031
+    label: SYN-TOT-VACATION
+  - wid: fde00000000000000000000000000032
+    label: SYN-TOT-SICK

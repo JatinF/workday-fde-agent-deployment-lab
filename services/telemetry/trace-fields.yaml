@@ -1,0 +1,8 @@
+fields:
+  - trace_id
+  - code
+  - failure_class
+  - outcome
+  - nodes
+  - business_process_event_id
+  - retry_attempts

@@ -1,0 +1,7 @@
+process: Request Time Off
+steps:
+  - validate_input
+  - read_worker
+  - read_balance
+  - reserve_coverage
+  - submit_business_process

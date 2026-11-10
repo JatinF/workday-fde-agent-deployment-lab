@@ -1,0 +1,4 @@
+live_calls: not-run
+called: false
+registration_host: us.agent.workday.com
+gateway_shape: "https://{agentGatewayRegionEndpoint}/{tenantName}/mcp"

@@ -1,0 +1,5 @@
+method: POST
+url: https://coverage.lab.invalid/slots
+live_call: not-run
+max_attempts: 3
+timeout_ms: 300000

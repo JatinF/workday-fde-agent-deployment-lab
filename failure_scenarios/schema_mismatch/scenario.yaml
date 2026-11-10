@@ -1,0 +1,17 @@
+id: schema_mismatch
+title: Schema mismatch
+symptom: The action rejects the body before reading the worker.
+diagnosis: validate_input fails with schema_mismatch because hours arrived as a string.
+root_cause: The request property hours is a number. The payload sent a string. Strict validation does not coerce it.
+fix: Send hours as an integer.
+prevention: CoverageInput is strict. Preflight still requires a description and a sample on every request property.
+actor_id: SYN-USER-NOOR
+skill: request-coverage
+arguments:
+  worker_id: SYN-USER-IVAN
+  hours: "8"
+  time_off_type_wid: fde00000000000000000000000000031
+  client_request_id: story-schema
+  coverage_note: Desk coverage for the lab engagement.
+expected_code: schema_mismatch
+validation: clean_write

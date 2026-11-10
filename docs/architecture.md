@@ -39,6 +39,21 @@ A direct Workday URL is rejected with `direct_api_blocked`. Reads go through the
 
 `requestTimeOffCoverage` is 22 characters, under the documented 30-character Custom Agent Action limit. The effect annotation is `Idempotent`. The lab store is what makes the replay return the same Request Time Off event. That store dies with the process. It is not an Orchestration Builder export.
 
+## Field story
+
+`fde-lab run-story` runs one manager request and ten injected failures. The request is a pydantic contract. No model is called. Authorization and the business-process permission check happen before the coverage call. The Request Time Off row is written only after coverage succeeds. The measured chain is `reports/field_story.md`.
+
+```mermaid
+flowchart TD
+  requestIn[ManagerRequest] --> tokenCheck[TokenCheck]
+  tokenCheck --> listedTool[GatewayChecks]
+  listedTool --> workerRead[ReadWorker]
+  workerRead --> balanceRead[ReadBalance]
+  balanceRead --> coverageSlot[CoverageSlot]
+  coverageSlot --> processEvent[RequestTimeOff]
+  processEvent --> auditRow[AuditRow]
+```
+
 ## Traces
 
 Each invoke stores a trace of nodes with inputs and outputs. Bearer values and `lab-token-` secrets are removed before the node is stored. The lab does not write App Hub traces and does not create an `AviatoTurboChatCIS` node, because no model call is made. Workday's trace page says that node is where the model call appears, and that traces are kept for 30 days for Extend Professionals. Neither of those behaviors is claimed here.

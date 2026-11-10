@@ -1,0 +1,19 @@
+id: configuration_drift
+title: Configuration drift
+symptom: A previously usable token is rejected after the agent registration changes.
+diagnosis: The token is issued, then gateway_authorize returns token_stale.
+root_cause: The token epoch is 1 and the registration epoch is 2. A token from before the registration change does not match the new epoch.
+fix: Discard the old token and call again after registration.
+prevention: Every tool authorization compares issued_epoch with registration_epoch.
+actor_id: SYN-USER-NOOR
+skill: request-coverage
+arguments:
+  worker_id: SYN-USER-IVAN
+  hours: 8
+  time_off_type_wid: fde00000000000000000000000000031
+  client_request_id: story-drift
+  coverage_note: Desk coverage for the lab engagement.
+faults:
+  registration_epoch: 2
+expected_code: token_stale
+validation: clean_write

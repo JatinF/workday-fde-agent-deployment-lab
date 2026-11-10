@@ -1,5 +1,7 @@
 # Field friction
 
+The lifecycle from one lab reproduction to a reusable check is [field-friction-analysis.md](field-friction-analysis.md). The items below are documentation contradictions. They were not observed in a tenant.
+
 These are differences and traps found while building the lab from Workday's public docs. They are not production incidents. No tenant was available to confirm them at runtime.
 
 ## 1. No development tenant was obtained

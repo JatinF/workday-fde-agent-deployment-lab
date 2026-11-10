@@ -1,0 +1,19 @@
+id: authentication_401
+title: 401 authentication failure
+symptom: The coverage request stores no Request Time Off event.
+diagnosis: token_check is rejected and the gateway records token_invalid. A registration POST with no token returns HTTP 401.
+root_cause: The access token is invalid. The lab rejects it before any worker read or coverage call.
+fix: Authenticate the actor again and use a token issued at the current registration epoch.
+prevention: token_check stays first, and the bearer secret is removed from the trace.
+actor_id: SYN-USER-NOOR
+skill: request-coverage
+arguments:
+  worker_id: SYN-USER-IVAN
+  hours: 8
+  time_off_type_wid: fde00000000000000000000000000031
+  client_request_id: story-auth-401
+  coverage_note: Desk coverage for the lab engagement.
+faults:
+  token_invalid: true
+expected_code: token_invalid
+validation: asor_token

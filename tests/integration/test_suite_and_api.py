@@ -103,3 +103,14 @@ def test_api_invoke_preflight_and_asor_stand_in() -> None:
 
 def test_cli_preflight_exits_zero() -> None:
     assert main(["preflight"]) == 0
+
+
+def test_story_route_returns_the_field_report() -> None:
+    client = TestClient(create_app(Runtime(load_package())))
+    response = client.get("/story")
+    assert response.status_code == 200
+    body = response.json()
+    assert body["failed"] == 0
+    assert body["tokens"] == 0
+    assert body["hosted_llm"] == "not-run"
+    assert "lab-token-" not in response.text

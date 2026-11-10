@@ -1,0 +1,19 @@
+id: dependency_failure
+title: Dependency failure
+symptom: The coverage calendar keeps returning an error and no time-off event is stored.
+diagnosis: reserve_coverage records the retry nodes and the code is retry_exhausted.
+root_cause: The fixture fails every attempt. The business process waits until coverage succeeds, so a dead dependency creates no time-off event.
+fix: When the dependency recovers, the same action succeeds on attempt 3 after two failures. Backoff is 10 ms then 20 ms on the virtual clock.
+prevention: Attempts are capped at 3. The business process is not submitted after the dependency is exhausted.
+actor_id: SYN-USER-NOOR
+skill: request-coverage
+arguments:
+  worker_id: SYN-USER-IVAN
+  hours: 8
+  time_off_type_wid: fde00000000000000000000000000031
+  client_request_id: story-dependency
+  coverage_note: Desk coverage for the lab engagement.
+faults:
+  external_always_fail: true
+expected_code: retry_exhausted
+validation: retry_recover

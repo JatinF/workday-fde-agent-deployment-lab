@@ -1,4 +1,4 @@
-.PHONY: preflight suite test lint typecheck
+.PHONY: preflight suite story test lint typecheck
 
 preflight:
 	fde-lab preflight
@@ -6,11 +6,14 @@ preflight:
 suite:
 	fde-lab run-suite
 
+story:
+	fde-lab run-story
+
 test:
 	pytest
 
 lint:
-	ruff check src tests scripts
+	ruff check src tests scripts security
 
 typecheck:
 	mypy src

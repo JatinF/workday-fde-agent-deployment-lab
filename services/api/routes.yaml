@@ -1,0 +1,9 @@
+paths:
+  - /health
+  - /gates
+  - /preflight
+  - /invoke
+  - /traces/{trace_id}
+  - /asor/agentDefinition
+  - /asor/agentDefinition/{agent_id}
+  - /story

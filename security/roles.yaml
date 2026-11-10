@@ -1,0 +1,15 @@
+# Least-privilege template for SYN-ORG-NORTHLINE. Not a Workday security export.
+asu:
+  name: time-off-coverage
+  security_groups:
+    - SYN-SG-MANAGER
+groups:
+  - id: SYN-SG-MANAGER
+    may_read: true
+    may_submit_time_off: true
+  - id: SYN-SG-HR-PARTNER
+    may_read: true
+    may_submit_time_off: false
+  - id: SYN-SG-EMPLOYEE
+    may_read: false
+    may_submit_time_off: false

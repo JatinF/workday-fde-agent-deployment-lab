@@ -1,0 +1,15 @@
+# Domain policies mirrored from fixtures/catalog.yaml. The story fails if they diverge.
+write_excludes:
+  - SYN-SG-EMPLOYEE
+domains:
+  time-off-view:
+    groups:
+      - SYN-SG-MANAGER
+      - SYN-SG-HR-PARTNER
+  time-off-submit:
+    groups:
+      - SYN-SG-MANAGER
+  worker-view:
+    groups:
+      - SYN-SG-MANAGER
+      - SYN-SG-HR-PARTNER

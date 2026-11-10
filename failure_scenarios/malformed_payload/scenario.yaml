@@ -1,0 +1,16 @@
+id: malformed_payload
+title: Malformed payload
+symptom: The action rejects the body and stores no event.
+diagnosis: validate_input returns malformed_input because client_request_id is absent.
+root_cause: The idempotency field is required. The payload omitted it.
+fix: Include client_request_id on every write.
+prevention: The replay store keys on that field. A write without it is refused.
+actor_id: SYN-USER-NOOR
+skill: request-coverage
+arguments:
+  worker_id: SYN-USER-IVAN
+  hours: 8
+  time_off_type_wid: fde00000000000000000000000000031
+  coverage_note: Desk coverage for the lab engagement.
+expected_code: malformed_input
+validation: clean_write

@@ -1,0 +1,19 @@
+id: timeout
+title: Downstream timeout
+symptom: The coverage call does not finish inside the synchronous limit.
+diagnosis: reserve_coverage is timed_out. The elapsed virtual clock is past 300000 ms. No business-process event is written.
+root_cause: The injected clock jumps by the timeout plus 1 ms on the first coverage attempt. The calendar host is a fixture.
+fix: Stay inside the 5-minute synchronous limit. This lab does not run an asynchronous orchestration.
+prevention: The timeout is checked before a later retry, and Request Time Off is not submitted after a timeout.
+actor_id: SYN-USER-NOOR
+skill: request-coverage
+arguments:
+  worker_id: SYN-USER-IVAN
+  hours: 8
+  time_off_type_wid: fde00000000000000000000000000031
+  client_request_id: story-timeout
+  coverage_note: Desk coverage for the lab engagement.
+faults:
+  timeout: true
+expected_code: timed_out
+validation: clean_write

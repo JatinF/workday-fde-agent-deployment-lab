@@ -24,6 +24,7 @@ _MESSAGES: dict[str, str] = {
     "tenant_alias_missing": "Agent Gateway requires the tenant alias.",
     "direct_api_blocked": "The runtime cannot call Workday except through its tool clients.",
     "malformed_input": "The actor is not in the lab tenant.",
+    "schema_mismatch": "The input arguments do not match the expected input schema.",
 }
 
 

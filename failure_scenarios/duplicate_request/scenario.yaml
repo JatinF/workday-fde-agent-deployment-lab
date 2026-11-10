@@ -1,0 +1,17 @@
+id: duplicate_request
+title: Duplicate request
+symptom: A second submit with the same client_request_id returns the original event.
+diagnosis: The idempotency node is replayed. The external call count stays 1 and the event count stays 1.
+root_cause: The key is the actor, the worker, and client_request_id. The client retried that same key.
+fix: Return the stored event. Do not reserve coverage again and do not submit Request Time Off again.
+prevention: The action effect is Idempotent. The lab store enforces it. The store is process memory and does not survive a restart.
+actor_id: SYN-USER-NOOR
+skill: request-coverage
+arguments:
+  worker_id: SYN-USER-IVAN
+  hours: 8
+  time_off_type_wid: fde00000000000000000000000000031
+  client_request_id: story-duplicate
+  coverage_note: Desk coverage for the lab engagement.
+expected_code: replayed
+validation: replay

@@ -1,0 +1,5 @@
+skills:
+  - file: agent/time-off-coverage/read-balance.agentskill
+    name: read-balance
+  - file: agent/time-off-coverage/request-coverage.agentskill
+    name: request-coverage

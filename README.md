@@ -23,6 +23,7 @@ The agent `time-off-coverage` is delegate-only. `read-balance` may be used by th
 | Traces with secrets removed | `src/fde_lab/tokens.py` |
 | Prompt-tool fix reused as a preflight check | `src/fde_lab/prompts.py` |
 | Troubleshooting suite | `fde-lab run-suite` |
+| Field story: one write, ten injected failures, backlog FDE-BACKLOG-001 | `fde-lab run-story` |
 
 Workday's custom-agent page says the runtime routes every call through one of four clients and then names two: the MCP client for Agent Gateway, and the Custom Agent Actions client for Orchestrate. This lab implements those two and refuses a direct API call. It does not invent the other two.
 
@@ -57,16 +58,41 @@ Workstation run of `fde-lab run-suite` against the local stand-in. The committed
 
 The replay case submits Request Time Off once. The second call with the same `client_request_id` returns that event and does not reserve coverage again.
 
-Pytest on this machine: 12 passed, branch coverage 82.56%. Ruff and mypy strict were clean. A local Docker build was not run. Docker is not installed here. The image build is the `docker-build` job in GitHub Actions.
+## Measured field story
+
+Workstation run of `fde-lab run-story`. The committed copy is `reports/field_story.md`. Duration is this process only. It is not a latency gate.
+
+| Field | Value |
+| --- | --- |
+| Checks | 13 |
+| Passed | 13 |
+| Failed | 0 |
+| Happy-path event | evt-0001 |
+| External coverage calls on the happy path | 1 |
+| Tokens | 0 |
+| Hosted model | not-run |
+| Story duration | 203.4542 ms on this workstation for the committed report. Not a regression gate. |
+
+The story submits one Request Time Off event for SYN-USER-NOOR booking 8 hours for SYN-USER-IVAN, then reproduces ten failures. Each row has a symptom, telemetry, diagnosis, root cause, fix, validation, and prevention. The prompt-tool omission is backlog FDE-BACKLOG-001.
+
+Pytest on this machine: 15 passed, branch coverage 83.00%. Ruff and mypy strict were clean. A local Docker build was not run. Docker is not installed here. The image build is the `docker-build` job in GitHub Actions.
 
 ## Layout
 
 ```
 agent/time-off-coverage/     .agent, .agentskill, security, orchestration
+agent/agent_definition/      index of that agent file
+agent/skills/                index of the skill files
+agent/prompts/               prompt WID template
+agent/policies/              delegate-mode template
+failure_scenarios/           ten injected failures
+security/                    role and permission templates
+workflows/                   time-off steps, approval rule, coverage call
+services/                    API routes, integration, Workday boundary, telemetry fields
 fixtures/                    lab catalog and synthetic workers
-src/fde_lab/                 package checks, runtime, suite, API
-docs/                        discovery, spec, friction, runbook, checklists
-reports/suite_results.md     measured suite
+src/fde_lab/                 package checks, runtime, suite, story, API
+docs/                        discovery, spec, friction, runbook, ADRs, backlog
+reports/                     measured suite and field story
 ```
 
 ## Commands
@@ -76,6 +102,7 @@ py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e ".[dev]"
 .\.venv\Scripts\python.exe -m fde_lab.cli preflight
 .\.venv\Scripts\python.exe -m fde_lab.cli run-suite
+.\.venv\Scripts\python.exe -m fde_lab.cli run-story
 .\.venv\Scripts\python.exe -m pytest
 .\.venv\Scripts\python.exe -m fde_lab.cli serve --host 127.0.0.1 --port 8000
 ```
@@ -86,12 +113,16 @@ py -3.12 -m venv .venv
 
 - [Customer discovery](docs/customer-discovery.md)
 - [Integration specification](docs/integration-spec.md)
+- [Security model](docs/security-model.md)
 - [Field friction](docs/field-friction.md)
+- [Field friction analysis](docs/field-friction-analysis.md)
+- [Troubleshooting runbook](docs/troubleshooting-runbook.md)
 - [Root-cause runbook](docs/runbooks/rca.md)
 - [Deployment checklist](docs/checklists/deployment.md)
 - [Security checklist](docs/checklists/security.md)
-- [Production readiness](docs/checklists/production-readiness.md)
+- [Production readiness](docs/production-readiness.md)
 - [Prompt-tool capability](docs/capabilities/prompt-tools.md)
+- [Backlog FDE-BACKLOG-001](docs/backlog/FDE-BACKLOG-001.md)
 - [Gates](docs/gates.md)
 - [Architecture](docs/architecture.md)
 

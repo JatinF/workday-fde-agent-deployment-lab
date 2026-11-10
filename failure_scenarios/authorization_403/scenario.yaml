@@ -1,0 +1,20 @@
+id: authorization_403
+title: 403 authorization failure
+symptom: The worker read is refused and no time-off event is stored.
+diagnosis: gateway_authorize on get_worker returns rest_403.
+root_cause: The REST resource call was injected with HTTP 403. Workday documents that status when the resource or the domain policy blocks the caller. This run injects the status. It does not call Workday.
+fix: Register the resource for the caller and include the caller's groups on the domain policy, then sign in again.
+prevention: A 403 stops the action before reserve_coverage and before Request Time Off.
+actor_id: SYN-USER-NOOR
+skill: request-coverage
+arguments:
+  worker_id: SYN-USER-IVAN
+  hours: 8
+  time_off_type_wid: fde00000000000000000000000000031
+  client_request_id: story-authz-403
+  coverage_note: Desk coverage for the lab engagement.
+faults:
+  call_tool_name: get_worker
+  rest_status: 403
+expected_code: rest_403
+validation: clean_write

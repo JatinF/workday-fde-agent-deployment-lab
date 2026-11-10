@@ -1,0 +1,3 @@
+submit_requires: manager_of_worker
+hr_may_read: true
+hr_may_submit: false

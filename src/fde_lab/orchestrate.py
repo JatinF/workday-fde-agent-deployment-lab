@@ -31,7 +31,9 @@ class Clock:
 
 
 class CoverageInput(BaseModel):
-    model_config = ConfigDict(extra="forbid")
+    """Strict so a string hour stays a schema mismatch instead of a coerced int."""
+
+    model_config = ConfigDict(extra="forbid", strict=True)
 
     worker_id: str
     hours: int
@@ -61,6 +63,14 @@ def _node(
     return TraceNode(name=name, status=status, inputs=redacted_in, outputs=redacted_out)
 
 
+def _validation_code(exc: ValidationError) -> str:
+    for err in exc.errors():
+        kind = str(err["type"])
+        if kind.endswith("_type") or kind.endswith("_parsing"):
+            return "schema_mismatch"
+    return "malformed_input"
+
+
 def _idempotency_key(actor_id: str, payload: CoverageInput) -> str:
     return actor_id + "|" + payload.worker_id + "|" + payload.client_request_id
 
@@ -81,15 +91,16 @@ def run_coverage(
     try:
         payload = CoverageInput.model_validate(arguments)
     except ValidationError as exc:
+        code = _validation_code(exc)
         return StepResult(
-            code="malformed_input",
+            code=code,
             message=str(exc.error_count()) + " input field(s) rejected",
             nodes=[
                 _node(
                     "validate_input",
                     "failed",
                     arguments,
-                    {"error_count": exc.error_count()},
+                    {"error_count": exc.error_count(), "code": code},
                 )
             ],
         )
@@ -156,21 +167,44 @@ def run_coverage(
                 )
             ],
         )
+    read_nodes = [
+        _node(
+            "validate_input",
+            "completed",
+            {"client_request_id": payload.client_request_id},
+            {"hours": payload.hours},
+        ),
+        _node(
+            "read_worker",
+            "completed",
+            {"worker_id": payload.worker_id},
+            {"manager_id": worker.manager_id or ""},
+        ),
+        _node(
+            "read_balance",
+            "completed",
+            {"hours": payload.hours},
+            {"balance_hours": worker.balance_hours},
+        ),
+    ]
     if faults.bp_unauthorized:
         return StepResult(
             code="task_not_authorized",
             message="The task submitted is not authorized.",
-            nodes=[_node("submit_business_process", "failed", {"process": "Request Time Off"}, {})],
+            nodes=read_nodes
+            + [_node("submit_business_process", "failed", {"process": "Request Time Off"}, {})],
         )
     coverage = _reserve_coverage(orchestration, faults, token_secret, clock, state)
     if coverage.code != "ok":
-        return coverage
+        return coverage.model_copy(update={"nodes": read_nodes + coverage.nodes})
     if faults.declared_response_bytes is not None:
         if faults.declared_response_bytes > orchestration.response_limit_bytes:
             return StepResult(
                 code="response_too_large",
                 message="Response size too large.",
-                nodes=[
+                nodes=read_nodes
+                + coverage.nodes
+                + [
                     _node(
                         "configure_response",
                         "failed",
@@ -190,7 +224,7 @@ def run_coverage(
     )
     state.events.append(event)
     state.idempotency[key] = event.event_id
-    nodes = coverage.nodes + [
+    nodes = read_nodes + coverage.nodes + [
         _node(
             "submit_business_process",
             "completed",

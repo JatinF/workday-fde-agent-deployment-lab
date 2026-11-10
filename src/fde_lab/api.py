@@ -13,6 +13,7 @@ from fde_lab.log import RequestLogMiddleware
 from fde_lab.models import InvokeRequest
 from fde_lab.preflight import preflight
 from fde_lab.runtime import Runtime
+from fde_lab.story import run_story
 
 _asor = AsorService()
 
@@ -49,6 +50,10 @@ def create_app(runtime: Runtime | None = None) -> FastAPI:
     @app.post("/invoke")
     def invoke(body: InvokeRequest) -> dict[str, object]:
         return _dump(app.state.runtime.invoke(body))
+
+    @app.get("/story")
+    def field_story() -> dict[str, object]:
+        return _dump(run_story())
 
     @app.get("/traces/{trace_id}")
     def read_trace(trace_id: str) -> dict[str, object]:

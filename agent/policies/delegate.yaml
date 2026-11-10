@@ -1,0 +1,3 @@
+execution_mode: Delegate
+app_id: northline-time-off-agent
+version: "0.1.0"
