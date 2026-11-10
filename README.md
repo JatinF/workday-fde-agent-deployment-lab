@@ -1,8 +1,24 @@
 # Workday FDE Agent Deployment Lab
 
-Forward-deployed lab for a Workday custom agent: App Builder artifact shape, ASOR registration checks, least-privilege security, an Orchestrate custom-agent action, and a troubleshooting suite for the failures Workday documents.
+Forward-deployed lab for a Workday custom agent. The local command `fde-lab run-story` runs. It submits one Request Time Off event, writes the audit row, and then injects ten failures on that same path.
 
-This is not a Workday tenant, not an App Hub deployment, and not a Sana agent. No live Workday call was made. No model was called. Tokens are 0. No price is applied.
+![Executed field story, from the manager request to audit event evt-0001](docs/diagrams/field-story.svg)
+
+```mermaid
+flowchart TD
+  requestIn[ManagerRequest] --> tokenCheck[TokenCheck]
+  tokenCheck --> listedTool[GatewayChecks]
+  listedTool --> inputCheck[ValidateInput]
+  inputCheck --> workerRead[ReadWorker]
+  workerRead --> balanceRead[ReadBalance]
+  balanceRead --> coverageSlot[CoverageSlot]
+  coverageSlot --> processEvent[RequestTimeOff]
+  processEvent --> auditRow[AuditEvent]
+```
+
+The committed trace for that run is `token_check`, five `gateway_authorize` checks, `validate_input`, `read_worker`, `read_balance`, `reserve_coverage`, and `submit_business_process`. The audit row is `evt-0001`. The trace is `tr-0001`. One coverage call. Tokens are 0. No price is applied.
+
+This is not a Workday tenant, not an App Hub deployment, and not a Sana agent. No live Workday call was made. No model was called.
 
 ## Engagement
 

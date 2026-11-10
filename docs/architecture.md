@@ -41,17 +41,20 @@ A direct Workday URL is rejected with `direct_api_blocked`. Reads go through the
 
 ## Field story
 
-`fde-lab run-story` runs one manager request and ten injected failures. The request is a pydantic contract. No model is called. Authorization and the business-process permission check happen before the coverage call. The Request Time Off row is written only after coverage succeeds. The measured chain is `reports/field_story.md`.
+`fde-lab run-story` runs one manager request and ten injected failures. The request is a pydantic contract. No model is called. Authorization and the business-process permission check happen before the coverage call. The Request Time Off row is written only after coverage succeeds. The measured chain is `reports/field_story.md`. The same diagram is attached to the README.
+
+![Executed field story, from the manager request to audit event evt-0001](diagrams/field-story.svg)
 
 ```mermaid
 flowchart TD
   requestIn[ManagerRequest] --> tokenCheck[TokenCheck]
   tokenCheck --> listedTool[GatewayChecks]
-  listedTool --> workerRead[ReadWorker]
+  listedTool --> inputCheck[ValidateInput]
+  inputCheck --> workerRead[ReadWorker]
   workerRead --> balanceRead[ReadBalance]
   balanceRead --> coverageSlot[CoverageSlot]
   coverageSlot --> processEvent[RequestTimeOff]
-  processEvent --> auditRow[AuditRow]
+  processEvent --> auditRow[AuditEvent]
 ```
 
 ## Traces

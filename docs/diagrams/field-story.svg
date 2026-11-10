@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="1080" viewBox="0 0 760 1080" role="img" aria-labelledby="diagramTitle diagramDesc">
+  <title id="diagramTitle">Executed time-off field story</title>
+  <desc id="diagramDesc">The path fde-lab run-story executed: manager request, token check, gateway, input validation, worker read, balance read, coverage reservation, Request Time Off, and audit event evt-0001.</desc>
+  <rect width="760" height="1080" fill="#ffffff"/>
+  <text x="40" y="42" fill="#16324f" font-family="Segoe UI, system-ui, sans-serif" font-size="22" font-weight="700">Flow that runs</text>
+  <text x="40" y="68" fill="#3d5166" font-family="Segoe UI, system-ui, sans-serif" font-size="14">fde-lab run-story. Local stand-in. One event, evt-0001.</text>
+  <defs>
+    <marker id="arrowHead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L10,4 L0,8 Z" fill="#1f4e79"/>
+    </marker>
+  </defs>
+  <rect x="120" y="96" width="520" height="72" rx="10" fill="#f7f9fc" stroke="#1f4e79" stroke-width="2"/>
+  <text x="380" y="124" text-anchor="middle" fill="#16324f" font-family="Segoe UI, system-ui, sans-serif" font-size="18" font-weight="700">Manager request</text>
+  <text x="380" y="148" text-anchor="middle" fill="#3d5166" font-family="Segoe UI, system-ui, sans-serif" font-size="14">NOOR books 8 hours for IVAN</text>
+  <line x1="380" y1="168" x2="380" y2="196" stroke="#1f4e79" stroke-width="2" marker-end="url(#arrowHead)"/>
+  <rect x="120" y="200" width="520" height="72" rx="10" fill="#f7f9fc" stroke="#1f4e79" stroke-width="2"/>
+  <text x="380" y="228" text-anchor="middle" fill="#16324f" font-family="Segoe UI, system-ui, sans-serif" font-size="18" font-weight="700">Token check</text>
+  <text x="380" y="252" text-anchor="middle" fill="#3d5166" font-family="Segoe UI, system-ui, sans-serif" font-size="14">Lab bearer token at registration epoch 1</text>
+  <line x1="380" y1="272" x2="380" y2="300" stroke="#1f4e79" stroke-width="2" marker-end="url(#arrowHead)"/>
+  <rect x="120" y="304" width="520" height="72" rx="10" fill="#f7f9fc" stroke="#1f4e79" stroke-width="2"/>
+  <text x="380" y="332" text-anchor="middle" fill="#16324f" font-family="Segoe UI, system-ui, sans-serif" font-size="18" font-weight="700">Gateway checks</text>
+  <text x="380" y="356" text-anchor="middle" fill="#3d5166" font-family="Segoe UI, system-ui, sans-serif" font-size="14">Alias, deploy, Available To, tool, domain</text>
+  <line x1="380" y1="376" x2="380" y2="404" stroke="#1f4e79" stroke-width="2" marker-end="url(#arrowHead)"/>
+  <rect x="120" y="408" width="520" height="72" rx="10" fill="#f7f9fc" stroke="#1f4e79" stroke-width="2"/>
+  <text x="380" y="436" text-anchor="middle" fill="#16324f" font-family="Segoe UI, system-ui, sans-serif" font-size="18" font-weight="700">Validate input</text>
+  <text x="380" y="460" text-anchor="middle" fill="#3d5166" font-family="Segoe UI, system-ui, sans-serif" font-size="14">Strict contract. Hours is an integer.</text>
+  <line x1="380" y1="480" x2="380" y2="508" stroke="#1f4e79" stroke-width="2" marker-end="url(#arrowHead)"/>
+  <rect x="120" y="512" width="520" height="72" rx="10" fill="#f7f9fc" stroke="#1f4e79" stroke-width="2"/>
+  <text x="380" y="540" text-anchor="middle" fill="#16324f" font-family="Segoe UI, system-ui, sans-serif" font-size="18" font-weight="700">Read worker and balance</text>
+  <text x="380" y="564" text-anchor="middle" fill="#3d5166" font-family="Segoe UI, system-ui, sans-serif" font-size="14">IVAN has 16 hours. Request is 8.</text>
+  <line x1="380" y1="584" x2="380" y2="612" stroke="#1f4e79" stroke-width="2" marker-end="url(#arrowHead)"/>
+  <rect x="120" y="616" width="520" height="72" rx="10" fill="#f7f9fc" stroke="#1f4e79" stroke-width="2"/>
+  <text x="380" y="644" text-anchor="middle" fill="#16324f" font-family="Segoe UI, system-ui, sans-serif" font-size="18" font-weight="700">Reserve coverage</text>
+  <text x="380" y="668" text-anchor="middle" fill="#3d5166" font-family="Segoe UI, system-ui, sans-serif" font-size="14">One call. Attempt 1 succeeds.</text>
+  <line x1="380" y1="688" x2="380" y2="716" stroke="#1f4e79" stroke-width="2" marker-end="url(#arrowHead)"/>
+  <rect x="120" y="720" width="520" height="72" rx="10" fill="#f7f9fc" stroke="#1f4e79" stroke-width="2"/>
+  <text x="380" y="748" text-anchor="middle" fill="#16324f" font-family="Segoe UI, system-ui, sans-serif" font-size="18" font-weight="700">Submit Request Time Off</text>
+  <text x="380" y="772" text-anchor="middle" fill="#3d5166" font-family="Segoe UI, system-ui, sans-serif" font-size="14">One business-process event</text>
+  <line x1="380" y1="792" x2="380" y2="820" stroke="#1f4e79" stroke-width="2" marker-end="url(#arrowHead)"/>
+  <rect x="120" y="824" width="520" height="72" rx="10" fill="#e8f2ea" stroke="#1b7f4e" stroke-width="2"/>
+  <text x="380" y="852" text-anchor="middle" fill="#145c32" font-family="Segoe UI, system-ui, sans-serif" font-size="18" font-weight="700">Audit and trace</text>
+  <text x="380" y="876" text-anchor="middle" fill="#1b7f4e" font-family="Segoe UI, system-ui, sans-serif" font-size="14">evt-0001 and trace tr-0001</text>
+  <text x="40" y="940" fill="#3d5166" font-family="Segoe UI, system-ui, sans-serif" font-size="14">Ten injected failures stop this path before a second event.</text>
+  <text x="40" y="964" fill="#3d5166" font-family="Segoe UI, system-ui, sans-serif" font-size="14">Measured result: 13 checks passed, 0 failed, 1 external call.</text>
+  <text x="40" y="988" fill="#3d5166" font-family="Segoe UI, system-ui, sans-serif" font-size="14">Live Workday, App Builder, ASOR, Agent Gateway, and Sana stay not-run.</text>
+</svg>
