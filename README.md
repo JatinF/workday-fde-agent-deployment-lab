@@ -2,19 +2,7 @@
 
 Forward-deployed lab for a Workday custom agent. The local command `fde-lab run-story` runs. It submits one Request Time Off event, writes the audit row, and then injects ten failures on that same path.
 
-![Executed field story, from the manager request to audit event evt-0001](docs/diagrams/field-story.svg)
-
-```mermaid
-flowchart TD
-  requestIn[ManagerRequest] --> tokenCheck[TokenCheck]
-  tokenCheck --> listedTool[GatewayChecks]
-  listedTool --> inputCheck[ValidateInput]
-  inputCheck --> workerRead[ReadWorker]
-  workerRead --> balanceRead[ReadBalance]
-  balanceRead --> coverageSlot[CoverageSlot]
-  coverageSlot --> processEvent[RequestTimeOff]
-  processEvent --> auditRow[AuditEvent]
-```
+![Executed field story. NOOR submits 8 hours for IVAN, through token check, gateway checks, reads, one coverage call, and audit event evt-0001. Ten injected failures sit under the phase that stops.](docs/diagrams/field-story.svg)
 
 The committed trace for that run is `token_check`, five `gateway_authorize` checks, `validate_input`, `read_worker`, `read_balance`, `reserve_coverage`, and `submit_business_process`. The audit row is `evt-0001`. The trace is `tr-0001`. One coverage call. Tokens are 0. No price is applied.
 

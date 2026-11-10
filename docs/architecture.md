@@ -43,19 +43,7 @@ A direct Workday URL is rejected with `direct_api_blocked`. Reads go through the
 
 `fde-lab run-story` runs one manager request and ten injected failures. The request is a pydantic contract. No model is called. Authorization and the business-process permission check happen before the coverage call. The Request Time Off row is written only after coverage succeeds. The measured chain is `reports/field_story.md`. The same diagram is attached to the README.
 
-![Executed field story, from the manager request to audit event evt-0001](diagrams/field-story.svg)
-
-```mermaid
-flowchart TD
-  requestIn[ManagerRequest] --> tokenCheck[TokenCheck]
-  tokenCheck --> listedTool[GatewayChecks]
-  listedTool --> inputCheck[ValidateInput]
-  inputCheck --> workerRead[ReadWorker]
-  workerRead --> balanceRead[ReadBalance]
-  balanceRead --> coverageSlot[CoverageSlot]
-  coverageSlot --> processEvent[RequestTimeOff]
-  processEvent --> auditRow[AuditEvent]
-```
+![Executed field story. NOOR submits 8 hours for IVAN, through token check, gateway checks, reads, one coverage call, and audit event evt-0001. Ten injected failures sit under the phase that stops.](diagrams/field-story.svg)
 
 ## Traces
 
