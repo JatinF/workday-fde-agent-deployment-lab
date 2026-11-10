@@ -1,0 +1,17 @@
+name: security
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  scan:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: pip install ruff==0.9.3
+      - run: ruff check src tests scripts
+      - run: python scripts/reject_private_keys.py

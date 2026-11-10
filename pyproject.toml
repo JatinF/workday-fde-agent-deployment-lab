@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "workday-fde-agent-deployment-lab"
+version = "0.1.0"
+description = "Forward-deployed lab for Workday custom-agent packaging, ASOR checks, least-privilege security, Orchestrate actions, and a troubleshooting suite. Live tenant calls are not-run."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Jatinder Singh" }]
+dependencies = [
+  "fastapi==0.115.6",
+  "pyyaml==6.0.2",
+  "pydantic==2.10.6",
+  "uvicorn==0.34.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "build==1.2.2",
+  "httpx==0.28.1",
+  "mypy==1.14.1",
+  "pytest==8.3.4",
+  "pytest-cov==6.0.0",
+  "ruff==0.9.3",
+  "types-PyYAML==6.0.12.20250915",
+]
+
+[project.scripts]
+fde-lab = "fde_lab.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+fde_lab = ["py.typed"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.12"
+packages = ["fde_lab"]
+strict = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=fde_lab --cov-report=term-missing --cov-fail-under=80"
+
+[tool.coverage.run]
+branch = true
+source = ["fde_lab"]

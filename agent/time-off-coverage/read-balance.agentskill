@@ -1,0 +1,26 @@
+---
+name: read-balance
+description: >
+  Reads the time-off balance for one worker. Use when a manager or HR partner
+  asks how much time off remains.
+metadata:
+  tags:
+    - time-off
+    - read
+allowed-tools:
+  - get_time_off_balance
+  - wql_get
+tool-wids:
+  - name: get_time_off_balance
+    wid: fde00000000000000000000000000001
+  - name: wql_get
+    wid: "9749ba9ac47e1000073fdc1bc8a5001a"
+---
+
+# Read balance
+
+1. Ask which worker the caller means if worker_id is missing.
+2. Call get_time_off_balance for that worker.
+3. Call wql_get with the documented WQL GET method id. If that WID is not
+   registered, stop. Do not answer from the REST payload alone.
+4. Return the remaining hours. Do not submit a business process.

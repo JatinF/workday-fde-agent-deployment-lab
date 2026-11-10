@@ -1,0 +1,19 @@
+execution_mode: Delegate
+app_id: northline-time-off-agent
+version: "0.1.0"
+deployed_versions:
+  - "0.1.0"
+skills:
+  read-balance:
+    enabled: true
+    available_to:
+      - SYN-SG-MANAGER
+      - SYN-SG-HR-PARTNER
+  request-coverage:
+    enabled: true
+    available_to:
+      - SYN-SG-MANAGER
+asu:
+  name: time-off-coverage
+  security_groups:
+    - SYN-SG-MANAGER

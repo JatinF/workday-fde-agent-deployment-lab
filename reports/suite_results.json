@@ -1,0 +1,361 @@
+{
+  "case_count": 34,
+  "passed": 34,
+  "failed": 0,
+  "token_leak_count": 0,
+  "business_process_events_after_replay": 1,
+  "external_calls_after_replay": 1,
+  "suite_duration_ms": 3.3394,
+  "gates": {
+    "development-tenant": "not-run",
+    "app-builder-deploy": "not-run",
+    "asor-live-post": "not-run",
+    "agent-gateway-live": "not-run",
+    "sana": "not-run",
+    "orchestrate-builder-export": "not-run",
+    "docker-local": "not-run",
+    "hosted-llm": "not-run"
+  },
+  "results": [
+    {
+      "case_id": "happy-read",
+      "expected_class": "ok",
+      "actual_class": "ok",
+      "expected_outcome": "completed",
+      "actual_outcome": "completed",
+      "passed": true,
+      "runbook_section": "timeout-retry-idempotency",
+      "detail": "ok"
+    },
+    {
+      "case_id": "hr-read",
+      "expected_class": "ok",
+      "actual_class": "ok",
+      "expected_outcome": "completed",
+      "actual_outcome": "completed",
+      "passed": true,
+      "runbook_section": "timeout-retry-idempotency",
+      "detail": "ok"
+    },
+    {
+      "case_id": "outside-org",
+      "expected_class": "permission_failure",
+      "actual_class": "permission_failure",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "security-groups",
+      "detail": "outside_management_chain"
+    },
+    {
+      "case_id": "happy-write",
+      "expected_class": "ok",
+      "actual_class": "ok",
+      "expected_outcome": "completed",
+      "actual_outcome": "completed",
+      "passed": true,
+      "runbook_section": "timeout-retry-idempotency",
+      "detail": "ok"
+    },
+    {
+      "case_id": "replay-write",
+      "expected_class": "ok",
+      "actual_class": "ok",
+      "expected_outcome": "completed",
+      "actual_outcome": "completed",
+      "passed": true,
+      "runbook_section": "timeout-retry-idempotency",
+      "detail": "replayed"
+    },
+    {
+      "case_id": "write-outside-org",
+      "expected_class": "permission_failure",
+      "actual_class": "permission_failure",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "security-groups",
+      "detail": "outside_management_chain"
+    },
+    {
+      "case_id": "insufficient-balance",
+      "expected_class": "business_rule",
+      "actual_class": "business_rule",
+      "expected_outcome": "completed_with_errors",
+      "actual_outcome": "completed_with_errors",
+      "passed": true,
+      "runbook_section": "timeout-retry-idempotency",
+      "detail": "insufficient_balance"
+    },
+    {
+      "case_id": "tenant-not-deployed",
+      "expected_class": "tenant_deployment",
+      "actual_class": "tenant_deployment",
+      "expected_outcome": "not_listed",
+      "actual_outcome": "not_listed",
+      "passed": true,
+      "runbook_section": "tenant-deployment",
+      "detail": "not_deployed"
+    },
+    {
+      "case_id": "skill-disabled",
+      "expected_class": "configuration_error",
+      "actual_class": "configuration_error",
+      "expected_outcome": "not_listed",
+      "actual_outcome": "not_listed",
+      "passed": true,
+      "runbook_section": "skills",
+      "detail": "skill_disabled"
+    },
+    {
+      "case_id": "user-not-in-group",
+      "expected_class": "permission_failure",
+      "actual_class": "permission_failure",
+      "expected_outcome": "not_listed",
+      "actual_outcome": "not_listed",
+      "passed": true,
+      "runbook_section": "security-groups",
+      "detail": "not_in_available_to"
+    },
+    {
+      "case_id": "hr-write-hidden",
+      "expected_class": "permission_failure",
+      "actual_class": "permission_failure",
+      "expected_outcome": "not_listed",
+      "actual_outcome": "not_listed",
+      "passed": true,
+      "runbook_section": "security-groups",
+      "detail": "not_in_available_to"
+    },
+    {
+      "case_id": "unknown-tool",
+      "expected_class": "missing_tool",
+      "actual_class": "missing_tool",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "agent-gateway-mcp",
+      "detail": "unknown_tool"
+    },
+    {
+      "case_id": "wid-missing",
+      "expected_class": "missing_resource",
+      "actual_class": "missing_resource",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "rest-soap-wql",
+      "detail": "wid_missing"
+    },
+    {
+      "case_id": "prompt-wid-missing",
+      "expected_class": "missing_resource",
+      "actual_class": "missing_resource",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "agent-gateway-mcp",
+      "detail": "prompt_tool_missing"
+    },
+    {
+      "case_id": "malformed-input",
+      "expected_class": "malformed_input",
+      "actual_class": "malformed_input",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "malformed-input",
+      "detail": "malformed_input"
+    },
+    {
+      "case_id": "rest-403",
+      "expected_class": "permission_failure",
+      "actual_class": "permission_failure",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "rest-soap-wql",
+      "detail": "rest_403"
+    },
+    {
+      "case_id": "soap-401",
+      "expected_class": "permission_failure",
+      "actual_class": "permission_failure",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "rest-soap-wql",
+      "detail": "soap_401"
+    },
+    {
+      "case_id": "bp-not-authorized",
+      "expected_class": "permission_failure",
+      "actual_class": "permission_failure",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "rest-soap-wql",
+      "detail": "task_not_authorized"
+    },
+    {
+      "case_id": "timeout",
+      "expected_class": "timeout",
+      "actual_class": "timeout",
+      "expected_outcome": "timed_out",
+      "actual_outcome": "timed_out",
+      "passed": true,
+      "runbook_section": "timeout-retry-idempotency",
+      "detail": "timed_out"
+    },
+    {
+      "case_id": "retry-then-success",
+      "expected_class": "ok",
+      "actual_class": "ok",
+      "expected_outcome": "completed",
+      "actual_outcome": "completed",
+      "passed": true,
+      "runbook_section": "timeout-retry-idempotency",
+      "detail": "ok"
+    },
+    {
+      "case_id": "retry-exhausted",
+      "expected_class": "retry_exhausted",
+      "actual_class": "retry_exhausted",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "timeout-retry-idempotency",
+      "detail": "retry_exhausted"
+    },
+    {
+      "case_id": "stale-token",
+      "expected_class": "authentication",
+      "actual_class": "authentication",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "tokens",
+      "detail": "token_stale"
+    },
+    {
+      "case_id": "missing-tenant-alias",
+      "expected_class": "configuration_error",
+      "actual_class": "configuration_error",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "configuration",
+      "detail": "tenant_alias_missing"
+    },
+    {
+      "case_id": "direct-api-blocked",
+      "expected_class": "configuration_error",
+      "actual_class": "configuration_error",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "agent-gateway-mcp",
+      "detail": "direct_api_blocked"
+    },
+    {
+      "case_id": "response-too-large",
+      "expected_class": "configuration_error",
+      "actual_class": "configuration_error",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "configuration",
+      "detail": "response_too_large"
+    },
+    {
+      "case_id": "secret-redacted",
+      "expected_class": "ok",
+      "actual_class": "ok",
+      "expected_outcome": "completed",
+      "actual_outcome": "completed",
+      "passed": true,
+      "runbook_section": "timeout-retry-idempotency",
+      "detail": "ok"
+    },
+    {
+      "case_id": "asor-400",
+      "expected_class": "configuration_error",
+      "actual_class": "configuration_error",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "asor-registration",
+      "detail": "400"
+    },
+    {
+      "case_id": "asor-401",
+      "expected_class": "authentication",
+      "actual_class": "authentication",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "asor-registration",
+      "detail": "401"
+    },
+    {
+      "case_id": "asor-403",
+      "expected_class": "permission_failure",
+      "actual_class": "permission_failure",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "asor-registration",
+      "detail": "403"
+    },
+    {
+      "case_id": "asor-404",
+      "expected_class": "missing_resource",
+      "actual_class": "missing_resource",
+      "expected_outcome": "failed",
+      "actual_outcome": "failed",
+      "passed": true,
+      "runbook_section": "asor-registration",
+      "detail": "404"
+    },
+    {
+      "case_id": "asor-update",
+      "expected_class": "ok",
+      "actual_class": "ok",
+      "expected_outcome": "completed",
+      "actual_outcome": "completed",
+      "passed": true,
+      "runbook_section": "asor-registration",
+      "detail": "same name, provider, and version update the existing agent"
+    },
+    {
+      "case_id": "prompt-tool-fix",
+      "expected_class": "ok",
+      "actual_class": "ok",
+      "expected_outcome": "completed",
+      "actual_outcome": "completed",
+      "passed": true,
+      "runbook_section": "agent-gateway-mcp",
+      "detail": "attach_required_prompts removes the prompt-tool finding"
+    },
+    {
+      "case_id": "employee-on-write",
+      "expected_class": "configuration_error",
+      "actual_class": "configuration_error",
+      "expected_outcome": "completed",
+      "actual_outcome": "completed",
+      "passed": true,
+      "runbook_section": "security-groups",
+      "detail": "employee_on_write"
+    },
+    {
+      "case_id": "ambient-custom-agent",
+      "expected_class": "configuration_error",
+      "actual_class": "configuration_error",
+      "expected_outcome": "completed",
+      "actual_outcome": "completed",
+      "passed": true,
+      "runbook_section": "configuration",
+      "detail": "ambient_custom_agent"
+    }
+  ]
+}

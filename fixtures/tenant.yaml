@@ -1,0 +1,23 @@
+# Synthetic engagement SYN-ORG-NORTHLINE. These are not Workday tenant records.
+org_id: SYN-ORG-NORTHLINE
+workers:
+  - worker_id: SYN-USER-NOOR
+    manager_id: null
+    groups:
+      - SYN-SG-MANAGER
+    balance_hours: 20
+  - worker_id: SYN-USER-IVAN
+    manager_id: SYN-USER-NOOR
+    groups:
+      - SYN-SG-EMPLOYEE
+    balance_hours: 16
+  - worker_id: SYN-USER-HANA
+    manager_id: null
+    groups:
+      - SYN-SG-HR-PARTNER
+    balance_hours: 12
+  - worker_id: SYN-USER-OTTO
+    manager_id: SYN-USER-HANA
+    groups:
+      - SYN-SG-EMPLOYEE
+    balance_hours: 8

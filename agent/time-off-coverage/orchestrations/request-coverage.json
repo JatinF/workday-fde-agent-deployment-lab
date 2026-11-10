@@ -1,0 +1,62 @@
+{
+  "name": "requestTimeOffCoverage",
+  "template": "Custom Agent Action",
+  "action_id": "requestTimeOffCoverage",
+  "display_name": "Request time off coverage",
+  "description": "Reads a worker balance, reserves a coverage slot, and submits Request Time Off. Use when a manager asks to book time off and name coverage.",
+  "effect": "Idempotent",
+  "timeout_ms": 300000,
+  "response_limit_bytes": 1048576,
+  "retry": {
+    "max_attempts": 3,
+    "backoff_ms": [10, 20]
+  },
+  "request_properties": [
+    {
+      "name": "worker_id",
+      "type": "string",
+      "required": true,
+      "description": "Lab worker id, for example SYN-USER-IVAN."
+    },
+    {
+      "name": "hours",
+      "type": "number",
+      "required": true,
+      "description": "Whole hours to book. A sample value is 8."
+    },
+    {
+      "name": "time_off_type_wid",
+      "type": "string",
+      "required": true,
+      "description": "Prompt WID from list_time_off_types. Vacation is fde00000000000000000000000000031."
+    },
+    {
+      "name": "client_request_id",
+      "type": "string",
+      "required": true,
+      "description": "Caller idempotency key. A repeated key returns the original event."
+    },
+    {
+      "name": "coverage_note",
+      "type": "string",
+      "required": false,
+      "description": "Short coverage note. A sample value is Desk coverage."
+    }
+  ],
+  "headers": [],
+  "query_parameters": [],
+  "workday_tools": [
+    "requestTimeOffCoverage",
+    "list_time_off_types",
+    "get_worker",
+    "get_time_off_balance",
+    "request_time_off"
+  ],
+  "steps": [
+    "validate_input",
+    "read_worker",
+    "read_balance",
+    "reserve_coverage",
+    "submit_business_process"
+  ]
+}

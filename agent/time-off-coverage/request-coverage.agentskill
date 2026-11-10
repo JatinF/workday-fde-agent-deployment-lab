@@ -1,0 +1,41 @@
+---
+name: request-coverage
+description: >
+  Reserves a coverage slot and submits Request Time Off for a worker in the
+  caller's management chain. Use only when the caller asks to book time off.
+metadata:
+  tags:
+    - time-off
+    - write
+allowed-tools:
+  - requestTimeOffCoverage
+  - list_time_off_types
+  - get_worker
+  - get_time_off_balance
+  - request_time_off
+  - soap_submit_time_off
+tool-wids:
+  - name: requestTimeOffCoverage
+    wid: fde00000000000000000000000000011
+  - name: list_time_off_types
+    wid: fde00000000000000000000000000002
+  - name: get_worker
+    wid: fde00000000000000000000000000004
+  - name: get_time_off_balance
+    wid: fde00000000000000000000000000001
+  - name: request_time_off
+    wid: fde00000000000000000000000000003
+  - name: soap_submit_time_off
+    wid: fde00000000000000000000000000021
+---
+
+# Request coverage
+
+1. Collect worker_id, hours, a time-off type from list_time_off_types, and a
+   client_request_id. Reject the call when any required field is missing.
+2. Call requestTimeOffCoverage. That is the Action ID. Do not call a second
+   name for the same action.
+3. The action reads the worker, checks the balance, reserves coverage, and
+   submits Request Time Off once for that client_request_id.
+4. soap_submit_time_off is registered so the troubleshooting suite can reproduce
+   the documented SOAP 401. The happy path does not call it.

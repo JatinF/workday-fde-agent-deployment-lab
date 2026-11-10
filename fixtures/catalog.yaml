@@ -1,0 +1,88 @@
+# Lab catalog. WIDs prefixed with fde0 are fixtures, not tenant identifiers.
+# wql_get and wql_post use the method IDs published in Workday's
+# Troubleshoot Custom Agent Actions page.
+tools:
+  - name: get_time_off_balance
+    wid: fde00000000000000000000000000001
+    protocol: mcp
+    operation: VIEW
+    effect: read-only
+    domain: time-off-view
+    description: Read the remaining time-off balance for one worker.
+    required_prompts: []
+  - name: list_time_off_types
+    wid: fde00000000000000000000000000002
+    protocol: prompt
+    operation: VIEW
+    effect: read-only
+    domain: time-off-view
+    description: Prompt tool that returns time-off type WIDs for a write.
+    required_prompts: []
+  - name: request_time_off
+    wid: fde00000000000000000000000000003
+    protocol: mcp
+    operation: CREATE
+    effect: destructive
+    domain: time-off-submit
+    description: Submit the Request Time Off business process.
+    required_prompts:
+      - list_time_off_types
+  - name: get_worker
+    wid: fde00000000000000000000000000004
+    protocol: rest
+    operation: VIEW
+    effect: read-only
+    domain: worker-view
+    description: REST read of one worker. A 403 means the resource or the domain policy blocked the call.
+    required_prompts: []
+  - name: wql_get
+    wid: "9749ba9ac47e1000073fdc1bc8a5001a"
+    protocol: wql
+    operation: VIEW
+    effect: read-only
+    domain: time-off-view
+    description: Documented WQL GET method id from the Custom Agent Action troubleshooting page.
+    required_prompts: []
+  - name: wql_post
+    wid: "3e15b2a1676d10000c9572ea9cc264b3"
+    protocol: wql
+    operation: CREATE
+    effect: read-only
+    domain: time-off-view
+    description: Documented WQL POST method id. Present in the catalog and unused by the shipped skills.
+    required_prompts: []
+  - name: requestTimeOffCoverage
+    wid: fde00000000000000000000000000011
+    protocol: orchestration
+    operation: CREATE
+    effect: idempotent
+    domain: time-off-submit
+    description: Custom Agent Action that reserves coverage and submits Request Time Off.
+    required_prompts:
+      - list_time_off_types
+    action_id: requestTimeOffCoverage
+  - name: soap_submit_time_off
+    wid: fde00000000000000000000000000021
+    protocol: soap
+    operation: CREATE
+    effect: destructive
+    domain: time-off-submit
+    description: SOAP submit used to reproduce the documented 401 failure.
+    required_prompts: []
+policies:
+  time-off-view:
+    groups:
+      - SYN-SG-MANAGER
+      - SYN-SG-HR-PARTNER
+  time-off-submit:
+    groups:
+      - SYN-SG-MANAGER
+  worker-view:
+    groups:
+      - SYN-SG-MANAGER
+      - SYN-SG-HR-PARTNER
+prompt_values:
+  - wid: fde00000000000000000000000000031
+    label: SYN-TOT-VACATION
+  - wid: fde00000000000000000000000000032
+    label: SYN-TOT-SICK
